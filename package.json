@@ -1,0 +1,20 @@
+{
+  "name": "groceryx-server",
+  "version": "1.0.0",
+  "description": "server for groceryx application",
+  "main": "src/server.js",
+
+  "scripts": {
+   "test": "export NODE_ENV=test && jasmine",
+   "start": "node src/server.js"
+ },
+  "author": "calvinchengsald",
+  "license": "ISC",
+  "devDependencies": {
+    "jasmine": "^3.0.0",
+    "request": "^2.83.0"
+  },
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
