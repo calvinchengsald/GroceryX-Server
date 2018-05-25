@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="container">
+
+      <h1> <%= groupUser.id %> </h1>
+
+      <div class='row'>
+        <div class='col-3'> userId: </div>
+        <div class='col-9'> <%= groupUser.userId %> </div>
+      </div>
+      <div class='row'>
+        <div class='col-3'> groupId: </div>
+        <div class='col-9'> <%= groupUser.groupId %> </div>
+      </div>
+
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+
+  </body>
+</html>

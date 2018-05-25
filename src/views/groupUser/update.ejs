@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="container">
+
+      <h1>Edit GroupUser</h1>
+
+      <form action="/groupUser/update/<%= groupUser.id %>" method="post">
+        <div class="form-groupUser">
+          <label for="title"> User Id </label>
+          <input value="<%= groupUser.userId %>" type="text" class="form-control" name="userId" aria-describedby="titleHelp" placeholder="User ID">
+        </div>
+        <div class="form-groupUser">
+          <label for="title"> Group Id </label>
+          <input value="<%= groupUser.groupId %>" type="text" class="form-control" name="userId" aria-describedby="titleHelp" placeholder="Group ID">
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+      </form>
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+
+  </body>
+</html>

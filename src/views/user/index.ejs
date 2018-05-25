@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+    <main class="container">
+      <% include ../static/partials/navbar.ejs %>
+
+      <h1>All Users</h1>
+      <a href='/user/new' >
+        <div class='btn btn-primary'> New </div>
+      </a>
+
+
+<!-- #1 -->
+        <% users.forEach((user) => { %>
+<!-- #2 -->
+          <div class="row border border-primary">
+            <div class='col'>
+              <%=user.id%>
+            </div>
+            <a class='col' href="/user/<%= user.id %>"> <%= user.name %> </a>
+            <div class='col'> <%=user.password%>  </div>
+            <form class='col' action="/user/delete/<%= user.id %>" method="post">
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+            <a class='col' href ='/user/update/<%= user.id %>' >
+              <div class="btn btn-primary"> Update </div>
+            </a>
+
+          </div>
+        <% }) %>
+
+
+    </main>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+    <main class="container">
+      <% include ../static/partials/navbar.ejs %>
+
+      <h1>All GroceryLists</h1>
+      <a href='/groceryList/new' >
+        <div class='btn btn-primary'> New </div>
+      </a>
+
+        <% groceryLists.forEach((groceryList) => { %>
+          <div class="row border border-primary">
+            <div class='col-1'> <%= groceryList.id %> </div>
+            <a class='col' href="/groceryList/<%= groceryList.id %>"> <%= groceryList.name %> </a>
+            <div class='col'> <%= groceryList.date %> </div>
+            <div class='col'> Group:<%= groceryList.groupId %> </div>
+            <div class='col'> Owner:<%= groceryList.ownerId %> </div>
+            <div class='col'> Private:<%= groceryList.private %> </div>
+            <form class='col' action="/groceryList/delete/<%= groceryList.id %>" method="post">
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+            <a class='col' href ='/groceryList/update/<%= groceryList.id %>' >
+              <div class="btn btn-primary"> Update </div>
+            </a>
+          </div>
+        <% }) %>
+
+
+
+    </main>
+  </body>
+</html>

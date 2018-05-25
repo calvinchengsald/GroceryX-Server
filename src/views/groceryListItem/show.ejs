@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="container">
+
+      <h1> <%= groceryList.name %> </h1>
+
+      <div class='row'>
+        <div class='col-3'> ID: </div>
+        <div class='col-9'> <%= groceryList.id %> </div>
+      </div>
+      <div class='row'>
+        <div class='col-3'> Name: </div>
+        <div class='col-9'> <%= groceryList.name %> </div>
+      </div>
+      <div class='row'>
+        <div class='col-3'> Date: </div>
+        <div class='col-9'> <%= groceryList.date %> </div>
+      </div>
+      <div class='row'>
+        <div class='col-3'> Private: </div>
+        <div class='col-9'> <%= groceryList.private %> </div>
+      </div>
+      <div class='row'>
+        <div class='col-3'> Owner: </div>
+        <div class='col-9'> <%= groceryList.User.name %> </div>
+      </div>
+      <div class='row'>
+        <div class='col-3'> Group: </div>
+        <div class='col-9'> <%= groceryList.Group.groupName %> </div>
+      </div>
+
+
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+
+  </body>
+</html>

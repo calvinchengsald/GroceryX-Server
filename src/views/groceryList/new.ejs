@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="container">
+
+      <h1>New GroceryList</h1>
+
+      <form action="/groceryList/create" method="post">
+        <div class="form-groceryList">
+          <label for="title">GroceryList Name</label>
+          <input type="text" class="form-control" name="groceryListName" aria-describedby="titleHelp" placeholder="Enter Name">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+
+
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+
+  </body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="container">
+
+      <h1> <%= group.name %> </h1>
+
+      <div class='row'>
+        <div class='col-3'> ID: </div>
+        <div class='col-9'> <%= group.id %> </div>
+      </div>
+      <div class='row'>
+        <div class='col-3'> Name: </div>
+        <div class='col-9'> <%= group.groupName %> </div>
+      </div>
+      <div> All Users </div>
+      <% group.groupusers.forEach((groupUser) => { %>
+        <div class='row'>
+          <div class='col'> <%= groupUser.User.name %> </div>
+        </div>
+      <% }) %>
+
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+
+  </body>
+</html>

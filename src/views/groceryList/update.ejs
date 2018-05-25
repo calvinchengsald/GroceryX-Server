@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="container">
+
+      <h1>Edit GroceryList</h1>
+
+      <form action="/groceryList/update/<%= groceryList.id %>" method="post">
+        <div class="form-groceryList">
+          <label for="title"> GroceryList Name</label>
+          <input value="<%= groceryList.groceryListName %>" type="text" class="form-control" name="groceryListName" aria-describedby="titleHelp" placeholder="Name">
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+      </form>
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+
+  </body>
+</html>

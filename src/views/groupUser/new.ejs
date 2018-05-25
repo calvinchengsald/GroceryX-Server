@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="container">
+
+      <h1>New GroupUser</h1>
+
+      <form action="/groupUser/create" method="post">
+        <div class="form-groupUser">
+          <label for="title">User ID</label>
+          <input type="text" class="form-control" name="userId" aria-describedby="titleHelp" placeholder="Enter User Id">
+        </div>
+        <div class="form-groupUser">
+          <label for="title">Group ID</label>
+          <input type="text" class="form-control" name="groupId" aria-describedby="titleHelp" placeholder="Enter Group Id">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+
+
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+
+  </body>
+</html>

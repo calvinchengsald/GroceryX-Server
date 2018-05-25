@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+    <main class="container">
+      <% include ../static/partials/navbar.ejs %>
+
+      <h1>All GroceryListItems</h1>
+      <a href='/groceryListItem/new' >
+        <div class='btn btn-primary'> New </div>
+      </a>
+
+        <% groceryListItems.forEach((groceryListItem) => { %>
+          <div class="row border border-primary">
+            <div class='col-1'> <%= groceryListItem.id %> </div>
+            <a class='col' href="/groceryListItem/<%= groceryListItem.id %>"> <%= groceryListItem.name %> </a>
+            <div class='col'> list:<%= groceryListItem.groceryListId %> </div>
+            <div class='col'> bought:<%= groceryListItem.userId %> </div>
+            <div class='col'> $<%= groceryListItem.budget %> </div>
+            <div class='col'> Purchased:<%= groceryListItem.purchased %> </div>
+            <div class='col'> Priority:<%= groceryListItem.priority %> </div>
+            <form class='col' action="/groceryListItem/delete/<%= groceryListItem.id %>" method="post">
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+            <a class='col' href ='/groceryListItem/update/<%= groceryListItem.id %>' >
+              <div class="btn btn-primary"> Update </div>
+            </a>
+          </div>
+        <% }) %>
+
+
+
+    </main>
+  </body>
+</html>

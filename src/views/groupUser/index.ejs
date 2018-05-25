@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+    <main class="container">
+      <% include ../static/partials/navbar.ejs %>
+
+      <h1>All GroupUsers</h1>
+      <a href='/groupUser/new' >
+        <div class='btn btn-primary'> New </div>
+      </a>
+
+
+      <% groupUsers.forEach((groupUser) => { %>
+<!-- #2 -->
+        <div class="row border border-primary">
+          <a class='col-1' href="/groupUser/<%= groupUser.id %>"> <%= groupUser.id %> </a>
+          <div class='col'> UserId: <%=groupUser.userId%>  </div>
+          <div class='col'> GroupId: <%=groupUser.groupId%>  </div>
+
+          <form class='col' action="/groupUser/delete/<%= groupUser.id %>" method="post">
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+          <a class='col' href ='/groupUser/update/<%= groupUser.id %>' >
+            <div class="btn btn-primary"> Update </div>
+          </a>
+
+        </div>
+      <% }) %>
+
+    </main>
+  </body>
+</html>

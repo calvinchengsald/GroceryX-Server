@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+    <main class="container">
+      <% include ../static/partials/navbar.ejs %>
+
+      <h1>All Groups</h1>
+      <a href='/group/new' >
+        <div class='btn btn-primary'> New </div>
+      </a>
+
+        <% groups.forEach((group) => { %>
+          <div class="row border border-primary">
+            <div class='col-1'> <%= group.id %> </div>
+            <a class='col' href="/group/<%= group.id %>"> <%= group.groupName %> </a>
+
+            <form class='col' action="/group/delete/<%= group.id %>" method="post">
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+            <a class='col' href ='/group/update/<%= group.id %>' >
+              <div class="btn btn-primary"> Update </div>
+            </a>
+          </div>
+        <% }) %>
+
+
+
+    </main>
+  </body>
+</html>
