@@ -19,10 +19,10 @@ module.exports = {
      };
      groupQueries.addGroup(newGroup, (err, group) => {
        if(err){
-         console.log(err);
-         res.redirect(500, "/group/new");
+
+           res.end(JSON.stringify(err,null,4));
        } else {
-         res.redirect(303, "/group");
+         res.end(JSON.stringify(group,null,4));
        }
      });
    },
@@ -36,25 +36,40 @@ module.exports = {
        }
      });
    },
+   postread(req,res,next){
+
+     groupQueries.getGroup(req.params.groupID, (err, group) => {
+       if(err){
+
+           res.end(JSON.stringify(err,null,4));
+       } else {
+
+           res.end(JSON.stringify(group,null,4));
+       }
+     });
+   },
    delete(req,res,next){
      groupQueries.deleteGroup(req.params.groupID, (err, group) => {
        if(err){
-         console.log(err);
-         res.redirect(500, "/group");
+
+           res.end(JSON.stringify(err,null,4));
        } else {
-         res.redirect(303, "/group");
+
+           res.end(JSON.stringify(group,null,4));
        }
      });
    },
    update(req, res, next){
       let updateGroup = {
-        groupName: req.body.groupName,
+        groupName: req.body.groupName
       };
       groupQueries.updateGroup(req.params.groupID, updateGroup, (err, group) => {
         if(err){
-          res.redirect(500, `/group/update/${req.params.groupID}`);
+
+            res.end(JSON.stringify(err,null,4));
         } else {
-          res.redirect(303, `/group/${group.id}`);
+
+            res.end(JSON.stringify(group,null,4));
         }
       });
     },

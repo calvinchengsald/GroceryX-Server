@@ -20,10 +20,9 @@ module.exports = {
      };
      groupUserQueries.addGroupUser(newGroupUser, (err, groupUser) => {
        if(err){
-         console.log(err);
-         res.redirect(500, "/groupUser/new");
+           res.end(JSON.stringify(err,null,4));
        } else {
-         res.redirect(303, `/groupUser`);
+         res.end(JSON.stringify(groupUser,null,4));
        }
      });
    },
@@ -33,17 +32,28 @@ module.exports = {
        if(err){
          res.redirect(500, "/groupUser");
        } else {
-           res.render("groupUser/show", {groupUser, title:"new groupUser"});
+         res.render("groupUser/show", {group, title:"new groupUser"});
+
+       }
+     });
+   },
+   postread(req,res,next){
+
+     groupUserQueries.getGroupUser(req.params.groupUserID, (err, groupUser) => {
+       if(err){
+         res.end(JSON.stringify(err,null,4));
+       } else {
+         res.end(JSON.stringify(groupUser,null,4));
+
        }
      });
    },
    delete(req,res,next){
      groupUserQueries.deleteGroupUser(req.params.groupUserID, (err, groupUser) => {
        if(err){
-         console.log(err);
-         res.redirect(500, "/groupUser");
+         res.end(JSON.stringify(err,null,4));
        } else {
-         res.redirect(303, "/groupUser");
+         res.end(JSON.stringify(groupUser,null,4));
        }
      });
    },
@@ -53,9 +63,10 @@ module.exports = {
       };
       groupUserQueries.updateGroupUser(req.params.groupUserID, updateGroupUser, (err, groupUser) => {
         if(err){
-          res.redirect(500, `/groupUser/update/${req.params.groupUserID}`);
+          res.end(JSON.stringify(err,null,4));
+
         } else {
-          res.redirect(303, `/groupUser/${groupUser.id}`);
+          res.end(JSON.stringify(groupUser,null,4));
         }
       });
     },

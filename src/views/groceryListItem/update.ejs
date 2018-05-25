@@ -12,7 +12,7 @@
       <form action="/groceryListItem/update/<%= groceryListItem.id %>" method="post">
         <div class="form-groceryListItem">
           <label for="title"> GroceryListItem Name</label>
-          <input value="<%= groceryListItem.groceryListItemName %>" type="text" class="form-control" name="groceryListItemName" aria-describedby="titleHelp" placeholder="Name">
+          <input value="<%= groceryListItem.groceryListItemName %>" type="text" class="form-control" name="name" aria-describedby="titleHelp" placeholder="Name">
         </div>
         <button type="submit" class="btn btn-primary">Update</button>
       </form>

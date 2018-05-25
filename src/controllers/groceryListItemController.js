@@ -24,10 +24,10 @@ module.exports = {
      };
      groceryListItemQueries.addGroceryListItem(newGroceryListItem, (err, groceryListItem) => {
        if(err){
-         console.log(err);
-         res.redirect(500, "/groceryListItem/new");
+      //   console.log(err);
+             res.end(JSON.stringify(err,null,4));
        } else {
-         res.redirect(303, "/groceryListItem");
+           res.end(JSON.stringify(groceryListItem,null,4));
        }
      });
    },
@@ -41,25 +41,39 @@ module.exports = {
        }
      });
    },
+   postread(req,res,next){
+
+     groceryListItemQueries.getGroceryListItem(req.params.groceryListItemID, (err, groceryListItem) => {
+       if(err){
+           res.end(JSON.stringify(err,null,4));
+       } else {
+           res.end(JSON.stringify(groceryListItem,null,4));
+       }
+     });
+   },
    delete(req,res,next){
      groceryListItemQueries.deleteGroceryListItem(req.params.groceryListItemID, (err, groceryListItem) => {
        if(err){
-         console.log(err);
-         res.redirect(500, "/groceryListItem");
+           res.end(JSON.stringify(err,null,4));
        } else {
-         res.redirect(303, "/groceryListItem");
+           res.end(JSON.stringify(groceryListItem,null,4));
        }
      });
    },
    update(req, res, next){
       let updateGroceryListItem = {
-        groceryListItemName: req.body.groceryListItemName,
+        name: req.body.name,
+        budget: req.body.budget,
+        purchased: req.body.purchased,
+        priority: req.body.priority,
+        groceryListId: req.body.groceryListId,
+        userId: req.body.userId,
       };
       groceryListItemQueries.updateGroceryListItem(req.params.groceryListItemID, updateGroceryListItem, (err, groceryListItem) => {
         if(err){
-          res.redirect(500, `/groceryListItem/update/${req.params.groceryListItemID}`);
+            res.end(JSON.stringify(err,null,4));
         } else {
-          res.redirect(303, `/groceryListItem/${groceryListItem.id}`);
+            res.end(JSON.stringify(groceryListItem,null,4));
         }
       });
     },

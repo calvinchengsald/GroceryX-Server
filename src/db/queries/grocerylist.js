@@ -1,5 +1,6 @@
 const User = require("../models").User;
 const GroceryList = require("../models").GroceryList;
+const GroceryListItem = require("../models").GroceryListItem;
 const Group = require("../models").Group;
 
 
@@ -31,28 +32,40 @@ module.exports = {
         callback(null, groceryList);
       })
       .catch((err) => {
-        console.log(err);
         callback(err);
       })
   },
 
   deleteGroceryList(id, callback){
-     return GroceryList.destroy({
-       where: {id}
-     })
-     .then((groceryList) => {
-       callback(null, groceryList);
-     })
-     .catch((err) => {
-       callback(err);
-     })
+    GroceryList.findById(id)
+    .then((groceryList)=>{
+      if(!groceryList){
+        let msg = {"success":false,"error" : "list not found"};
+        callback(null, msg);
+      }
+      return GroceryList.destroy({
+        where: {id}
+      })
+      .then((groceryList) => {
+        let msg = {"success":true};
+        callback(null, msg);
+      })
+      .catch((err) => {
+        callback(err);
+      })
+    })
+    .catch((err)=>{
+      callback(err);
+    })
+
    },
 
   getGroceryList(id, callback){
     return GroceryList.findById(id, {
       include: [
-         {model: Group},
-         {model: User},
+         {model: Group, as :"group"},
+         {model: User, as:"owner"},
+         {model: GroceryListItem, as: "groceries"},
        ]
      })
      .then((groceryList) => {
@@ -64,16 +77,28 @@ module.exports = {
      })
   },
   updateGroceryList(id, updatedGroceryList, callback) {
-    return GroceryList.findById(id)
+    GroceryList.findById(id)
     .then((groceryList) => {
         if(!groceryList){
-          return callback("GroceryList not found");
+          let msg = {"success":false,"error" : "list not found"};
+          return callback(null,msg);
         }
+
         groceryList.update(updatedGroceryList, {
           fields: Object.keys(updatedGroceryList)
         })
         .then(() => {
-          callback(null, groceryList);
+          GroceryList.findById(id)
+          .then((updated)=>{
+            if(!updated){
+              let msg = {"success":false,"error" : "update failed"};
+              return callback(null,msg);
+            }
+            callback(null, updated);
+          })
+          .catch((err)=>{
+            callback(err);
+          })
         })
         .catch((err) => {
           callback(err);

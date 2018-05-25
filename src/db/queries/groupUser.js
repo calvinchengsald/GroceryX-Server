@@ -1,4 +1,6 @@
 const GroupUser = require("../models").GroupUser;
+const Group = require("../models").Group;
+const User = require("../models").User;
 
 
 module.exports = {
@@ -26,26 +28,49 @@ module.exports = {
         callback(null, groupUser);
       })
       .catch((err) => {
-        console.log(err);
         callback(err);
       })
   },
 
   deleteGroupUser(id, callback){
-     return GroupUser.destroy({
-       where: {id}
-     })
-     .then((groupUser) => {
-       callback(null, groupUser);
-     })
-     .catch((err) => {
-       callback(err);
-     })
+      GroupUser.findById(id)
+      .then((groupUser)=>{
+        if(!groupUser){
+
+            let msg = {"success":false,"error" : "Group User not found"};
+            return callback(null, msg);
+        }
+        GroupUser.destroy({
+         where: {id}
+         })
+         .then((groupUser) => {
+           let msg = {"success":true};
+           return callback(null, msg);
+         })
+         .catch((err) => {
+           callback(err);
+         })
+
+      })
+      .catch((err)=>{
+        callback(err);
+      })
+
    },
 
   getGroupUser(id, callback){
-     return GroupUser.findById(id)
+     return GroupUser.findById(id,{
+       include: [
+
+          {model:User, as: "user"},
+          {model:Group, as: "group"}
+        ]
+     })
      .then((groupUser) => {
+       if(!groupUser){
+         let msg = {"success":false,"error" : "Group User not found"};
+         return callback(null, msg);
+       }
        callback(null, groupUser);
      })
      .catch((err) => {
@@ -56,13 +81,14 @@ module.exports = {
     return GroupUser.findById(id)
     .then((groupUser) => {
         if(!groupUser){
-          return callback("GroupUser not found");
+          let msg = {"success":false,"error" : "Group User not found"};
+          return callback(null, msg);
         }
         groupUser.update(updatedGroupUser, {
           fields: Object.keys(updatedGroupUser)
         })
-        .then(() => {
-          callback(null, groupUser);
+        .then((data) => {
+          callback(null, data);
         })
         .catch((err) => {
           callback(err);

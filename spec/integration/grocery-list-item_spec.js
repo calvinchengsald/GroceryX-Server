@@ -2,16 +2,18 @@ const sequelize = require("../../src/db/models/index").sequelize;
 const GroceryList = require("../../src/db/models").GroceryList;
 const Group = require("../../src/db/models").Group;
 const User = require("../../src/db/models").User;
+const GroceryListItem = require("../../src/db/models").GroceryListItem;
 const request = require("request");
 const server = require("../../src/server");
-const base = "http://localhost:3001/groceryList/";
+const base = "http://localhost:3001/groceryListItem/";
 
-describe("INTEGRATE : groceryList", () => {
+describe("INTEGRATE : groceryListItem", () => {
 
   beforeEach((done) => {
       this.groceryList;
       this.user;
       this.group;
+      this.groceryListItem;
       sequelize.sync({force: true}).then((res) => {
         User.create({
           name: "Calvin",
@@ -34,7 +36,22 @@ describe("INTEGRATE : groceryList", () => {
             })
             .then((data) => {
               this.groceryList = data;
-              done();
+              GroceryListItem.create({
+                name: "orange",
+                groceryListId: this.groceryList.id,
+                userId: this.user.id,
+                budget: 10,
+                purchased: true,
+                priority: 5
+              })
+              .then((item) => {
+                this.groceryListItem = item;
+                done();
+              })
+              .catch((err) => {
+                console.log(err);
+                done();
+              });
             })
             .catch((err) => {
               console.log(err);
@@ -73,33 +90,39 @@ describe("INTEGRATE : groceryList", () => {
          })
      });
 
-     it("should create a GroceryList with post", (done) => {
+     it("should create a GroceryListItem with post", (done) => {
          const options = {
            url: `${base}create`,
            form: {
-             name: "Target milk run",
-             date: new Date(),
-             groupId : this.group.id,
-             ownerId : this.user.id,
-             private : false
+             name: "banana",
+             groceryListId: this.groceryList.id,
+             userId: this.user.id,
+             budget: 11,
+             purchased: false,
+             priority: 4
            }
          };
          request.post(options, (err, res, body) => {
                expect(res.statusCode).toBe(200);
                expect(err).toBeNull();
-               expect(body).toContain("Target milk run");
+               expect(body).toContain("banana");
+               expect(body).toContain(this.groceryList.id);
+               expect(body).toContain(this.user.id);
+               expect(body).toContain(11);
                expect(body).toContain(false);
+               expect(body).toContain(4);
                done();
           });
      });
-     it("should fail to create a GroceryList with no name", (done) => {
+     it("should fail to create a GroceryListItem with no name", (done) => {
          const options = {
            url: `${base}create`,
            form: {
-             date: new Date(),
-             groupId : this.group.id,
-             ownerId : this.user.id,
-             private : false
+             groceryListId: this.groceryList.id,
+             userId: this.user.id,
+             budget: 11,
+             purchased: false,
+             priority: 4
            }
          };
          request.post(options, (err, res, body) => {
@@ -113,17 +136,20 @@ describe("INTEGRATE : groceryList", () => {
    describe("POST READ ", () => {
 
 
-     it("should READ a GroceryList with post", (done) => {
+     it("should READ a GroceryListItem with post", (done) => {
          const options = {
-           url: `${base}${this.groceryList.id}`
+           url: `${base}${this.groceryListItem.id}`
          };
          request.post(options, (err, res, body) => {
                expect(res.statusCode).toBe(200);
                expect(err).toBeNull();
+               expect(body).toContain(this.groceryListItem.name);
+               expect(body).toContain(this.groceryListItem.budget);
+               expect(body).toContain(this.groceryListItem.purchased);
+               expect(body).toContain(this.groceryListItem.priority);
                expect(body).toContain(this.groceryList.name);
-               expect(body).toContain(this.groceryList.private);
-               expect(body).toContain(this.group.groupName);
                expect(body).toContain(this.user.name);
+               expect(body).toContain(this.group.groupName);
                done();
           });
      });
@@ -134,22 +160,27 @@ describe("INTEGRATE : groceryList", () => {
    describe("POST UPDATE ", () => {
 
 
-     it("should UPDATE a GroceryList with post", (done) => {
+     it("should UPDATE a GroceryListItem with post", (done) => {
          const options = {
-           url: `${base}update/${this.groceryList.id}`,
+           url: `${base}update/${this.groceryListItem.id}`,
            form: {
-             name: "Target and then Pet Stop",
-             date: new Date(),
-             groupId : this.group.id,
-             ownerId : this.user.id,
-             private : false
+             name: "mega bananas",
+             groceryListId: this.groceryList.id,
+             userId: this.user.id,
+             budget: 100,
+             purchased: true,
+             priority: 10
            }
          };
          request.post(options, (err, res, body) => {
                expect(res.statusCode).toBe(200);
                expect(err).toBeNull();
-               expect(body).toContain("Target and then Pet Stop");
-               expect(body).toContain(false);
+               expect(body).toContain("mega bananas");
+               expect(body).toContain(this.groceryList.id);
+               expect(body).toContain(this.user.id);
+               expect(body).toContain(100);
+               expect(body).toContain(true);
+               expect(body).toContain(10);
                done();
           });
      });
@@ -159,9 +190,9 @@ describe("INTEGRATE : groceryList", () => {
    describe("POST DELETE ", () => {
 
 
-     it("should DELETE a GroceryList with post", (done) => {
+     it("should DELETE a GroceryListItem with post", (done) => {
          const options = {
-           url: `${base}delete/${this.groceryList.id}`,
+           url: `${base}delete/${this.groceryListItem.id}`,
          };
          request.post(options, (err, res, body) => {
                expect(res.statusCode).toBe(200);
@@ -171,14 +202,14 @@ describe("INTEGRATE : groceryList", () => {
           });
      });
 
-     it("should not DELETE a GroceryList that doesnt exist", (done) => {
+     it("should not DELETE a GroceryListItem that doesnt exist", (done) => {
          const options = {
-           url: `${base}update/${this.groceryList.id+2}`,
+           url: `${base}update/${this.groceryListItem.id+2}`,
          };
          request.post(options, (err, res, body) => {
                expect(res.statusCode).toBe(200);
                expect(err).toBeNull();
-               expect(body).toContain("list not found");
+               expect(body).toContain("item not found");
                done();
           });
      });

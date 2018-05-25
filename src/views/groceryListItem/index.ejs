@@ -24,6 +24,9 @@
             <form class='col' action="/groceryListItem/delete/<%= groceryListItem.id %>" method="post">
               <button type="submit" class="btn btn-danger">Delete</button>
             </form>
+            <form class='col' action='/groceryListItem/update/<%= groceryListItem.id %>' method="post">
+              <button type="submit" class="btn btn-danger">GET</button>
+            </form>
             <a class='col' href ='/groceryListItem/update/<%= groceryListItem.id %>' >
               <div class="btn btn-primary"> Update </div>
             </a>

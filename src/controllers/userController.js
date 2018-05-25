@@ -22,9 +22,9 @@ module.exports = {
      };
      userQueries.addUser(newUser, (err, user) => {
        if(err){
-         res.redirect(500, "/user/new");
+         res.end(JSON.stringify(err,null,4));
        } else {
-         res.redirect(303, `/user`);
+         res.end(JSON.stringify(user,null,4));
        }
      });
    },
@@ -37,13 +37,23 @@ module.exports = {
        }
      });
    },
+   postread(req,res,next){
+     userQueries.getUser(req.params.userID, (err, user) => {
+       if(err){
+         res.end(JSON.stringify(err,null,4));
+       } else {
+
+           res.end(JSON.stringify(user,null,4));
+       }
+     });
+   },
    delete(req,res,next){
      userQueries.deleteUser(req.params.userID, (err, user) => {
        if(err){
          console.log(err);
-         res.redirect(500, "/user");
+           res.end(JSON.stringify(err,null,4));
        } else {
-         res.redirect(303, "/user");
+         res.end(JSON.stringify(user,null,4));
        }
      });
    },
@@ -54,9 +64,9 @@ module.exports = {
       };
       userQueries.updateUser(req.params.userID, updateUser, (err, user) => {
         if(err){
-          res.redirect(500, `/user/update/${req.params.userID}`);
+          res.end(JSON.stringify(err,null,4));
         } else {
-          res.redirect(303, `/user/${user.id}`);
+          res.end(JSON.stringify(user,null,4));
         }
       });
     },

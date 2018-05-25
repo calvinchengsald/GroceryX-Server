@@ -11,9 +11,22 @@
 
       <form action="/groceryList/update/<%= groceryList.id %>" method="post">
         <div class="form-groceryList">
-          <label for="title"> GroceryList Name</label>
-          <input value="<%= groceryList.groceryListName %>" type="text" class="form-control" name="groceryListName" aria-describedby="titleHelp" placeholder="Name">
+          <label for="title">GroceryList Name</label>
+          <input type="text" class="form-control" name="name" aria-describedby="titleHelp" placeholder="Enter Name" value="<%= groceryList.name %>">
         </div>
+        <div class="form-groceryList">
+          <label for="title">groupId</label>
+          <input type="text" class="form-control" name="groupId" aria-describedby="titleHelp" placeholder="Enter Name" value="<%= groceryList.groupId %>">
+        </div>
+        <div class="form-groceryList">
+          <label for="title">ownerId</label>
+          <input type="text" class="form-control" name="ownerId" aria-describedby="titleHelp" placeholder="Enter Name" value="<%= groceryList.ownerId %>">
+        </div>
+        <div class="form-groceryList">
+          <label for="title">private</label>
+          <input type="text" class="form-control" name="private" aria-describedby="titleHelp" placeholder="Enter Name" value="<%= groceryList.private %>">
+        </div>
+        
         <button type="submit" class="btn btn-primary">Update</button>
       </form>
     </main>

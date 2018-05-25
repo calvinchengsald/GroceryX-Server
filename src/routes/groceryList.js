@@ -6,6 +6,7 @@ router.get("/groceryList", groceryListController.index);
 router.get("/groceryList/new", groceryListController.new);
 router.post("/groceryList/create", groceryListController.create);
 router.get("/groceryList/:groceryListID", groceryListController.read);
+router.post("/groceryList/:groceryListID", groceryListController.postread);
 router.post("/groceryList/delete/:groceryListID", groceryListController.delete);
 router.post("/groceryList/update/:groceryListID", groceryListController.update);
 router.get("/groceryList/update/:groceryListID", groceryListController.edit);

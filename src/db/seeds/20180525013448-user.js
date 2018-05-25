@@ -5,7 +5,7 @@ const faker = require("faker");
 
 let users = [];
 
-for(let i = 1 ; i <= 15 ; i++){
+for(let i = 1 ; i <= 10 ; i++){
  users.push({
    name: faker.name.firstName(),
    password: faker.hacker.noun(),

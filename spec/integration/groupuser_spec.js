@@ -1,20 +1,17 @@
-
 const sequelize = require("../../src/db/models/index").sequelize;
-const GroceryList = require("../../src/db/models").GroceryList;
 const Group = require("../../src/db/models").Group;
 const GroupUser = require("../../src/db/models").GroupUser;
 const User = require("../../src/db/models").User;
 const request = require("request");
 const server = require("../../src/server");
-const base = "http://localhost:3001/user/";
+const base = "http://localhost:3001/groupuser/";
 
-describe("INTEGRATE : user", () => {
+describe("INTEGRATE : groupuser", () => {
 
   beforeEach((done) => {
     this.groupUser;
     this.user;
     this.group;
-    this.groceryList;
     sequelize.sync({force: true}).then((res) => {
       User.create({
         name: "Calvin",
@@ -33,22 +30,7 @@ describe("INTEGRATE : user", () => {
           })
           .then((data) => {
             this.groupUser = data;
-            GroceryList.create({
-               name : "walmart time",
-               date: new Date(),
-               groupId: this.group.id,
-               ownerId: this.user.id,
-               private: true
-
-            })
-            .then((data) => {
-              this.groceryList = data;
-              done();
-            })
-            .catch((err) => {
-              console.log(err);
-              done();
-            });
+            done();
           })
           .catch((err) => {
             console.log(err);
@@ -71,30 +53,31 @@ describe("INTEGRATE : user", () => {
 
 
 
+
    describe("POST CREATE ", () => {
 
 
-     it("should create a User with name/pw", (done) => {
+     it("should create a GroupUser ", (done) => {
          const options = {
            url: `${base}create`,
            form: {
-             name: "Andy",
-             password: "boom"
+             userId: this.user.id,
+             groupId: this.group.id,
            }
          };
          request.post(options, (err, res, body) => {
                expect(res.statusCode).toBe(200);
                expect(err).toBeNull();
-               expect(body).toContain("Andy");
-               expect(body).toContain("boom");
+               expect(body).toContain(this.user.id);
+               expect(body).toContain(this.group.id);
                done();
           });
      });
-     it("should fail to create a User with no name", (done) => {
+     it("should fail to create a GroupUser with no user id", (done) => {
          const options = {
            url: `${base}create`,
            form: {
-             password: "boom"
+             groupId: this.group.id
            }
          };
          request.post(options, (err, res, body) => {
@@ -108,17 +91,17 @@ describe("INTEGRATE : user", () => {
    describe("POST READ ", () => {
 
 
-     it("should READ a User with post", (done) => {
+     it("should READ a GroupUser with post", (done) => {
          const options = {
-           url: `${base}${this.user.id}`
+           url: `${base}${this.groupUser.id}`
          };
          request.post(options, (err, res, body) => {
                expect(res.statusCode).toBe(200);
                expect(err).toBeNull();
+               expect(body).toContain(this.groupUser.groupId);
+               expect(body).toContain(this.groupUser.userId);
                expect(body).toContain(this.user.name);
-               expect(body).toContain(this.user.id);
-               expect(body).toContain(this.user.password);
-               expect(body).toContain(this.groceryList.name);
+               expect(body).toContain(this.group.groupName);
                done();
           });
      });
@@ -127,19 +110,34 @@ describe("INTEGRATE : user", () => {
    });
 
    describe("POST UPDATE ", () => {
+     beforeEach((done) => {
+         this.user2;
+         User.create({
+           name: "Anvin",
+           password: "blarg"
+         })
+         .then((user)=>{
+           this.user2 = user;
+           done();
+         })
+         .catch((err)=>{
+           console.log(err);
+           done();
+         })
+     });
 
-
-     it("should UPDATE a User with post", (done) => {
+     it("should UPDATE a GroupUser with post", (done) => {
          const options = {
-           url: `${base}update/${this.user.id}`,
+           url: `${base}update/${this.groupUser.id}`,
            form: {
-             name: "lorenz"
+             userId: this.user2.id
            }
          };
          request.post(options, (err, res, body) => {
                expect(res.statusCode).toBe(200);
                expect(err).toBeNull();
-               expect(body).toContain("lorenz");
+               expect(body).toContain(this.groupUser.groupId);
+               expect(body).toContain(this.user2.id);
                done();
           });
      });
@@ -149,9 +147,9 @@ describe("INTEGRATE : user", () => {
    describe("POST DELETE ", () => {
 
 
-     it("should DELETE a User with post", (done) => {
+     it("should DELETE a GroupUser with post", (done) => {
          const options = {
-           url: `${base}delete/${this.user.id}`,
+           url: `${base}delete/${this.groupUser.id}`,
          };
          request.post(options, (err, res, body) => {
                expect(res.statusCode).toBe(200);
@@ -161,14 +159,14 @@ describe("INTEGRATE : user", () => {
           });
      });
 
-     it("should not DELETE a User that doesnt exist", (done) => {
+     it("should not DELETE a GroupUser that doesnt exist", (done) => {
          const options = {
-           url: `${base}update/${this.user.id+2}`,
+           url: `${base}update/${this.groupUser.id+2}`,
          };
          request.post(options, (err, res, body) => {
                expect(res.statusCode).toBe(200);
                expect(err).toBeNull();
-               expect(body).toContain("user not found");
+               expect(body).toContain("Group User not found");
                done();
           });
      });

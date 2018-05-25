@@ -5,7 +5,7 @@ const faker = require("faker");
 
 let groups = [];
 
-for(let i = 1 ; i <= 15 ; i++){
+for(let i = 1 ; i <= 10 ; i++){
  groups.push({
    groupName: faker.lorem.word(),
    createdAt: new Date(),

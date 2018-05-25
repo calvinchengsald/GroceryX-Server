@@ -33,11 +33,13 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     GroupUser.belongsTo(models.User, {
       foreignKey: "userId",
-      onDelete: "CASCADE"
+      onDelete: "CASCADE",
+      as: "user"
     });
     GroupUser.belongsTo(models.Group, {
       foreignKey: "groupId",
-      onDelete: "CASCADE"
+      onDelete: "CASCADE",
+      as: "group"
     });
   };
   return GroupUser;

@@ -23,6 +23,12 @@
             <form class='col' action="/groceryList/delete/<%= groceryList.id %>" method="post">
               <button type="submit" class="btn btn-danger">Delete</button>
             </form>
+            <form class='col' action='/groceryList/<%= groceryList.id %>'  method="post">
+              <button type="submit" class="btn btn-danger">POST</button>
+            </form>
+            <a class='col' href ='/groceryList/update/<%= groceryList.id %>' >
+              <div class="btn btn-primary"> EDIT </div>
+            </a>
             <a class='col' href ='/groceryList/update/<%= groceryList.id %>' >
               <div class="btn btn-primary"> Update </div>
             </a>

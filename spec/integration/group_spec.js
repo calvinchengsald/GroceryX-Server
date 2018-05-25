@@ -6,9 +6,9 @@ const GroupUser = require("../../src/db/models").GroupUser;
 const User = require("../../src/db/models").User;
 const request = require("request");
 const server = require("../../src/server");
-const base = "http://localhost:3001/user/";
+const base = "http://localhost:3001/group/";
 
-describe("INTEGRATE : user", () => {
+describe("INTEGRATE : group", () => {
 
   beforeEach((done) => {
     this.groupUser;
@@ -74,27 +74,25 @@ describe("INTEGRATE : user", () => {
    describe("POST CREATE ", () => {
 
 
-     it("should create a User with name/pw", (done) => {
+     it("should create a Group with post", (done) => {
          const options = {
            url: `${base}create`,
            form: {
-             name: "Andy",
-             password: "boom"
+             groupName: "sassy sandwichers"
            }
          };
          request.post(options, (err, res, body) => {
                expect(res.statusCode).toBe(200);
                expect(err).toBeNull();
-               expect(body).toContain("Andy");
-               expect(body).toContain("boom");
+               expect(body).toContain("sassy sandwichers");
                done();
           });
      });
-     it("should fail to create a User with no name", (done) => {
+     it("should fail to create a Group with no name", (done) => {
          const options = {
            url: `${base}create`,
            form: {
-             password: "boom"
+
            }
          };
          request.post(options, (err, res, body) => {
@@ -108,16 +106,16 @@ describe("INTEGRATE : user", () => {
    describe("POST READ ", () => {
 
 
-     it("should READ a User with post", (done) => {
+     it("should READ a Group with post", (done) => {
          const options = {
-           url: `${base}${this.user.id}`
+           url: `${base}${this.group.id}`
          };
          request.post(options, (err, res, body) => {
                expect(res.statusCode).toBe(200);
                expect(err).toBeNull();
+               expect(body).toContain(this.group.groupName);
+               expect(body).toContain(this.group.id);
                expect(body).toContain(this.user.name);
-               expect(body).toContain(this.user.id);
-               expect(body).toContain(this.user.password);
                expect(body).toContain(this.groceryList.name);
                done();
           });
@@ -129,17 +127,17 @@ describe("INTEGRATE : user", () => {
    describe("POST UPDATE ", () => {
 
 
-     it("should UPDATE a User with post", (done) => {
+     it("should UPDATE a Group with post", (done) => {
          const options = {
-           url: `${base}update/${this.user.id}`,
+           url: `${base}update/${this.group.id}`,
            form: {
-             name: "lorenz"
+             groupName: "sassier sandwichers"
            }
          };
          request.post(options, (err, res, body) => {
                expect(res.statusCode).toBe(200);
                expect(err).toBeNull();
-               expect(body).toContain("lorenz");
+               expect(body).toContain("sassier sandwichers");
                done();
           });
      });
@@ -149,9 +147,9 @@ describe("INTEGRATE : user", () => {
    describe("POST DELETE ", () => {
 
 
-     it("should DELETE a User with post", (done) => {
+     it("should DELETE a Group with post", (done) => {
          const options = {
-           url: `${base}delete/${this.user.id}`,
+           url: `${base}delete/${this.group.id}`,
          };
          request.post(options, (err, res, body) => {
                expect(res.statusCode).toBe(200);
@@ -161,14 +159,14 @@ describe("INTEGRATE : user", () => {
           });
      });
 
-     it("should not DELETE a User that doesnt exist", (done) => {
+     it("should not DELETE a Group that doesnt exist, sassy", (done) => {
          const options = {
-           url: `${base}update/${this.user.id+2}`,
+           url: `${base}update/${this.group.id+2}`,
          };
          request.post(options, (err, res, body) => {
                expect(res.statusCode).toBe(200);
                expect(err).toBeNull();
-               expect(body).toContain("user not found");
+               expect(body).toContain("group not found");
                done();
           });
      });
