@@ -3,15 +3,15 @@
 
 const faker = require("faker");
 
-let groups = [];
+let groceryListItems = [];
 
 for(let i = 1 ; i <= 15 ; i++){
- groups.push({
+ groceryListItems.push({
    name: faker.hacker.noun(),
    groceryListId: i%2+1,
-   budget: faker.number,
+   budget: i,
    purchased: false,
-   priority: faker.number,
+   priority: i%10,
    userId: i%5+1,
    createdAt: new Date(),
    updatedAt: new Date()
@@ -20,7 +20,7 @@ for(let i = 1 ; i <= 15 ; i++){
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert("GroceryListItems", groups, {});
+    return queryInterface.bulkInsert("GroceryListItems", groceryListItems, {});
   },
 
   down: (queryInterface, Sequelize) => {

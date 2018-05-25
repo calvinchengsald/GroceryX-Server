@@ -4,7 +4,18 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     budget: DataTypes.INTEGER,
     purchased: DataTypes.BOOLEAN,
-    priority: DataTypes.INTEGER
+    priority: DataTypes.INTEGER,
+    userId: {
+       type: DataTypes.INTEGER
+
+    },
+    groceryListId: {
+       type: DataTypes.INTEGER,
+       allowNull: false,
+
+    },
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE
   }, {});
   GroceryListItem.associate = function(models) {
     // associations can be defined here

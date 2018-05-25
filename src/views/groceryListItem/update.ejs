@@ -7,12 +7,12 @@
 
     <main class="container">
 
-      <h1>Edit GroceryList</h1>
+      <h1>Edit GroceryListItem</h1>
 
-      <form action="/groceryList/update/<%= groceryList.id %>" method="post">
-        <div class="form-groceryList">
-          <label for="title"> GroceryList Name</label>
-          <input value="<%= groceryList.groceryListName %>" type="text" class="form-control" name="groceryListName" aria-describedby="titleHelp" placeholder="Name">
+      <form action="/groceryListItem/update/<%= groceryListItem.id %>" method="post">
+        <div class="form-groceryListItem">
+          <label for="title"> GroceryListItem Name</label>
+          <input value="<%= groceryListItem.groceryListItemName %>" type="text" class="form-control" name="groceryListItemName" aria-describedby="titleHelp" placeholder="Name">
         </div>
         <button type="submit" class="btn btn-primary">Update</button>
       </form>

@@ -31,16 +31,22 @@ module.exports = {
       },
       userId: {
          type: Sequelize.INTEGER,
-         onDelete: "CASCADE",
          references: {
            model: "Users",
            key: "id",
            as: "userId"
          }
       },
+      createdAt: {
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+      }
+
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('GroceryLists');
+    return queryInterface.dropTable('GroceryListItems');
   }
 };

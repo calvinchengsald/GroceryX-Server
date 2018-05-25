@@ -2,7 +2,6 @@ const groceryListItemQueries = require("../db/queries/groceryListItem.js");
 
 module.exports = {
   index(req, res, next){
-    console.log("err hereeeee");
     groceryListItemQueries.getAllGroceryListItems((err, groceryListItems) => {
         if(err){
           res.redirect(500, "static/index");

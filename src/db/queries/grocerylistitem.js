@@ -1,6 +1,6 @@
 const User = require("../models").User;
 const GroceryListItem = require("../models").GroceryListItem;
-const Group = require("../models").Group;
+const GroceryList = require("../models").GroceryList;
 
 
 module.exports = {
@@ -14,6 +14,7 @@ module.exports = {
       callback(null, groceryListItem);
     })
     .catch((err) => {
+      console.log(err);
       console.log("an err");
       callback(err);
     })
@@ -53,8 +54,8 @@ module.exports = {
   getGroceryListItem(id, callback){
     return GroceryListItem.findById(id, {
       include: [
-         {model: Group},
-         {model: User},
+         {model: GroceryList},
+         {model: User}
        ]
      })
      .then((groceryListItem) => {
