@@ -19,6 +19,24 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    username: {
+      allowNull: false,
+      type: DataTypes.STRING,
+      validate: {
+        isNotNull(value) {
+          if (!value) {
+            throw new Error('username Cannot be null');
+            // we also are in the model's context here, so this.otherField
+            // would get the value of otherField if it existed
+          }
+          if (value.length < 1) {
+            throw new Error('Cannot be empty string');
+            // we also are in the model's context here, so this.otherField
+            // would get the value of otherField if it existed
+          }
+        }
+      }
+    },
     password: {
       allowNull: false,
       type: DataTypes.STRING,

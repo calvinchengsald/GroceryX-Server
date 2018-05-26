@@ -18,7 +18,8 @@ module.exports = {
   create(req, res, next){
      let newUser = {
        name: req.body.name,
-       password: req.body.password
+       password: req.body.password,
+       username: req.body.username
      };
      userQueries.addUser(newUser, (err, user) => {
        if(err){
@@ -60,7 +61,8 @@ module.exports = {
    update(req, res, next){
       let updateUser = {
         name: req.body.name,
-        password: req.body.password
+        password: req.body.password,
+        username: req.body.username
       };
       userQueries.updateUser(req.params.userID, updateUser, (err, user) => {
         if(err){
@@ -80,6 +82,25 @@ module.exports = {
         }
       });
 
+    },
+
+    signIn(req, res, next){
+      console.log(req.body);
+      console.log(req.body.password);
+      console.log(req.body.username);
+      let signInUser = {
+        password: req.body.password,
+        username: req.body.username
+      };
+      userQueries.signIn(signInUser, (err,user)=>{
+        if(err){
+          console.log("err");
+          res.end(JSON.stringify(err,null,4));
+        } else {
+          console.log(JSON.stringify(user));
+          res.end(JSON.stringify(user,null,4));
+        }
+      })
     }
 
 

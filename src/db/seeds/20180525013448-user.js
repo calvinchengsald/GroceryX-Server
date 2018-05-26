@@ -9,6 +9,7 @@ for(let i = 1 ; i <= 10 ; i++){
  users.push({
    name: faker.name.firstName(),
    password: faker.hacker.noun(),
+   username: faker.hacker.verb(),
    createdAt: new Date(),
    updatedAt: new Date()
  });

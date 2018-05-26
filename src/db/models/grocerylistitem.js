@@ -19,7 +19,10 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    budget: DataTypes.INTEGER,
+    budget: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
     purchased: DataTypes.BOOLEAN,
     priority: DataTypes.INTEGER,
     userId: {

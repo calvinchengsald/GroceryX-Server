@@ -14,7 +14,8 @@ describe("CRUD : groceryList", () => {
       sequelize.sync({force: true}).then((res) => {
         User.create({
           name: "Calvin",
-          password: "pass"
+          password: "pass",
+          username: "calvinvon"
         })
         .then((user)=>{
           this.user = user;

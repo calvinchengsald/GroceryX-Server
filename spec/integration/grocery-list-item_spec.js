@@ -17,7 +17,8 @@ describe("INTEGRATE : groceryListItem", () => {
       sequelize.sync({force: true}).then((res) => {
         User.create({
           name: "Calvin",
-          password: "pass"
+          password: "pass",
+          username: "calvinvon"
         })
         .then((user)=>{
           this.user = user;
@@ -126,7 +127,7 @@ describe("INTEGRATE : groceryListItem", () => {
            }
          };
          request.post(options, (err, res, body) => {
-              expect(body).toContain("cannot be null");
+              expect(body).toContain("Name is required");
                done();
           });
      });

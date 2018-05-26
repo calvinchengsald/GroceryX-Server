@@ -10,7 +10,8 @@ describe("CRUD : user", () => {
       sequelize.sync({force: true}).then((res) => {
         User.create({
            name : "Calvin",
-           password: "password"
+           password: "password",
+           username: "calvinvon"
         })
         .then((user) => {
           this.user = user;
@@ -29,6 +30,7 @@ describe("CRUD : user", () => {
        User.create({
          name: "Joe Shmoe",
          password: "secure",
+         username: "calvinvon"
        })
        .then((user) => {
          expect(user.name).toBe("Joe Shmoe");
@@ -44,6 +46,7 @@ describe("CRUD : user", () => {
        User.create({
          name: "Joe Shmoe",
          password: "",
+         username: "calvinvon"
        })
        .then((user) => {
          expect(user.name).toBe("Should not ever reach here zzzzz");

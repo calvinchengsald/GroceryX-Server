@@ -15,7 +15,8 @@ describe("INTEGRATE : groupuser", () => {
     sequelize.sync({force: true}).then((res) => {
       User.create({
         name: "Calvin",
-        password: "pass"
+        password: "pass",
+        username: "calvinvon"
       })
       .then((user)=>{
         this.user = user;
@@ -114,7 +115,9 @@ describe("INTEGRATE : groupuser", () => {
          this.user2;
          User.create({
            name: "Anvin",
-           password: "blarg"
+           password: "blarg",
+           username: "calvinvon"
+
          })
          .then((user)=>{
            this.user2 = user;

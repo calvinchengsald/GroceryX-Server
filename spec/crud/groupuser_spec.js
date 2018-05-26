@@ -14,7 +14,8 @@ describe("CRUD : group", () => {
       sequelize.sync({force: true}).then((res) => {
         User.create({
           name: "Calvin",
-          password: "pass"
+          password: "pass",
+          username: "calvinvon"
         })
         .then((user)=>{
           this.user = user;
@@ -86,7 +87,8 @@ describe("CRUD : group", () => {
      });
      it("should not create a usergorup with no groupId", (done) => {
        GroupUser.create({
-          userId : 1
+          userId : 1,
+          username: "calvinvon"
        })
        .then((data) => {
          expect(data.userId).toBe("Should not ever reach here zzzzz");
@@ -120,7 +122,8 @@ describe("CRUD : group", () => {
          this.user2;
          User.create({
            name: "Calvin2",
-           password: "password"
+           password: "password",
+           username: "calvinvon"
          })
          .then((user)=>{
            this.user2 = user;

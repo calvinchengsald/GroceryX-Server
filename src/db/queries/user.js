@@ -18,6 +18,20 @@ module.exports = {
       callback(err);
     })
   },
+  signIn(user,callback){
+    User.findOne({
+      where : {username: user.username, password : user.password}
+    })
+    .then((data)=>{
+      callback(null,data);
+    })
+    .catch((err)=>{
+
+      let msg = {"success":false,"error" : "user not found"};
+      return callback(null, msg);
+      callback(err);
+    })
+  },
 
   getUser(id, callback){
      return User.findById(id, {
@@ -47,7 +61,8 @@ module.exports = {
 
       return User.create({
         name: newUser.name,
-        password: newUser.password
+        password: newUser.password,
+        username: newUser.username
       })
       .then((user) => {
         callback(null, user);

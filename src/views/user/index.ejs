@@ -11,6 +11,18 @@
       <a href='/user/new' >
         <div class='btn btn-primary'> New </div>
       </a>
+      <form action="/user/signIn" method="post">
+        <div class="form-group">
+          <label for="title"> Username</label>
+          <input type="text" class="form-control" name="username" aria-describedby="titleHelp" placeholder="Username">
+        </div>
+        <div class="form-group">
+          <label for="description">Password</label>
+          <input  type="text" class="form-control" name="password" aria-describedby="titleHelp" placeholder="Password">
+
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
 
 
 <!-- #1 -->
@@ -21,7 +33,9 @@
               <%=user.id%>
             </div>
             <a class='col' href="/user/<%= user.id %>"> <%= user.name %> </a>
-            <div class='col'> <%=user.password%>  </div>
+
+            <div class='col'> user:<%=user.username%>  </div>
+            <div class='col'> pw:<%=user.password%>  </div>
             <form class='col' action="/user/delete/<%= user.id %>" method="post">
               <button type="submit" class="btn btn-danger">Delete</button>
             </form>
