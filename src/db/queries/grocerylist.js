@@ -65,7 +65,11 @@ module.exports = {
       include: [
          {model: Group, as :"group"},
          {model: User, as:"owner"},
-         {model: GroceryListItem, as: "groceries"},
+         {model: GroceryListItem, as: "groceries",
+           include: [
+             {model: User, as:"buyer" }
+           ]
+         },
        ]
      })
      .then((groceryList) => {

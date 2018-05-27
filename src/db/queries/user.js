@@ -20,7 +20,13 @@ module.exports = {
   },
   signIn(user,callback){
     User.findOne({
-      where : {username: user.username, password : user.password}
+      where : {username: user.username, password : user.password},
+      include: [
+         {
+           model: GroupUser, as: "groupusers", include: [{model: Group, as: "group" }]
+         },
+         {model: GroceryList, as : "grocerylists"}
+       ]
     })
     .then((data)=>{
       callback(null,data);
@@ -41,7 +47,7 @@ module.exports = {
           },
           {model: GroceryList, as : "grocerylists"}
         ]
-    })
+      })
 
      .then((user) => {
        if(!user){
@@ -65,10 +71,27 @@ module.exports = {
         username: newUser.username
       })
       .then((user) => {
-        callback(null, user);
+        User.findById(user.id, {
+          include: [
+             {
+               model: GroupUser, as: "groupusers", include: [{model: Group, as: "group" }]
+             },
+             {model: GroceryList, as : "grocerylists"}
+           ]
+         })
+        .then((data) => {
+          if(!data){
+            let msg = {"success":false,"error" : "error creating user"};
+            return callback(null, msg);
+          }
+          return callback(null, data);
+        })
+        .catch((err) => {
+          return callback(err);
+        })
       })
       .catch((err) => {
-        callback(err);
+        return callback(err);
       })
   },
 
