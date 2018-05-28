@@ -58,6 +58,38 @@ module.exports = {
 
    },
 
+
+   leave(leaveReq, callback){
+     GroupUser.findOne({
+       where : {userId: leaveReq.userId, groupId : leaveReq.groupId},
+
+     })
+     .then((data)=>{
+       if(!data){
+         let msg = {"success":false,"error" : "This User-Group was not found"};
+         return callback(null, msg);
+       }
+       else {
+         let id = data.id;
+         GroupUser.destroy({
+          where: {id}
+          })
+          .then((groupUser) => {
+            let msg = {"success":true};
+            return callback(null, msg);
+          })
+          .catch((err) => {
+            callback(err);
+          })
+       }
+     })
+     .catch((err)=>{
+       let msg = {"success":false,"error" : "This User-Group was not found"};
+       return callback(null, msg);
+     })
+
+   },
+
   getGroupUser(id, callback){
      return GroupUser.findById(id,{
        include: [

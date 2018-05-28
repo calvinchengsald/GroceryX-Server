@@ -61,6 +61,22 @@ module.exports = {
      })
    },
 
+   getUserWithUsername(username,callback){
+     User.findOne({
+       where : {username: username}
+     })
+     .then((data)=>{
+       if(!data){
+         let msg = {"success":false,"error" : "user not found"};
+         return callback(null, msg);
+       }
+       return callback(null,data);
+     })
+     .catch((err)=>{
+       let msg = {"success":false,"error" : "user not found"};
+       return callback(null, msg);
+     })
+   },
 
   addUser(newUser, callback){
       //console.log("adduser: " + newUser.name + " " + newUser.password);

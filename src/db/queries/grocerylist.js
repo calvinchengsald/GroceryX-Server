@@ -1,4 +1,5 @@
 const User = require("../models").User;
+const GroupUser = require("../models").GroupUser;
 const GroceryList = require("../models").GroceryList;
 const GroceryListItem = require("../models").GroceryListItem;
 const Group = require("../models").Group;
@@ -63,7 +64,13 @@ module.exports = {
   getGroceryList(id, callback){
     return GroceryList.findById(id, {
       include: [
-         {model: Group, as :"group"},
+         {model: Group, as :"group",
+           include: [
+             {model: GroupUser, as:"groupusers",
+               include: [{model: User, as:"user"}]
+             }
+           ]
+         },
          {model: User, as:"owner"},
          {model: GroceryListItem, as: "groceries",
            include: [

@@ -7,7 +7,7 @@ module.exports = {
        name: req.body.name,
        date: new Date(),
        groupId: req.body.groupId,
-       ownerId: req.body.ownderId,
+       ownerId: req.body.ownerId,
        private: req.body.private
      };
      groceryListQueries.addGroceryList(newGroceryList, (err, groceryList) => {

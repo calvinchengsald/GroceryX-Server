@@ -80,6 +80,20 @@ module.exports = {
         }
       });
 
+    },
+    leave(req,res,next){
+      let leaveReq = {
+        userId: req.body.userId,
+        groupId: req.body.groupId
+      };
+      groupUserQueries.leave(leaveReq, (err, groupUser) => {
+        if(err){
+          res.end(JSON.stringify(err,null,4));
+
+        } else {
+          res.end(JSON.stringify(groupUser,null,4));
+        }
+      });
     }
 
 
