@@ -4,8 +4,8 @@ module.exports = {
     req.checkBody("name", "Name is required").notEmpty();
     req.checkBody("groceryListId", "Grocery List does not exist").notEmpty().isInt();
     req.checkBody("purchased", "Enter purchased boolean").isBoolean();
-    req.checkBody("budget","Please enter a valid number").isInt();
-    req.checkBody("priority", "Please enter a valid priority 1-10").isInt({min:1,max: 10});
+//    req.checkBody("budget","Please enter a valid number").isInt();
+//    req.checkBody("priority", "Please enter a valid priority 1-10").isInt({min:1,max: 10});
 
 
     const errors = req.validationErrors();
