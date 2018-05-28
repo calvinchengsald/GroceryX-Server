@@ -11,6 +11,7 @@ router.get("/user/:userID", userController.read);
 router.post("/user/:userID", userController.postread);
 router.post("/user/delete/:userID", userController.delete);
 router.post("/user/update/:userID", userController.update);
+router.post("/user/update/:userID/password", userController.updatePassword);
 router.get("/user/update/:userID", userController.edit);
 
 

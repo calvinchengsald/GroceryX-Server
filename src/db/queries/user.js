@@ -29,13 +29,16 @@ module.exports = {
        ]
     })
     .then((data)=>{
-      callback(null,data);
+      if(!data){
+        let msg = {"success":false,"error" : "Username or Password is incorrect"};
+        return callback(null, msg);
+      }
+      return callback(null,data);
     })
     .catch((err)=>{
 
       let msg = {"success":false,"error" : "user not found"};
       return callback(null, msg);
-      callback(err);
     })
   },
 
@@ -71,6 +74,36 @@ module.exports = {
          return callback(null, msg);
        }
        return callback(null,data);
+     })
+     .catch((err)=>{
+       let msg = {"success":false,"error" : "user not found"};
+       return callback(null, msg);
+     })
+   },
+   updatePassword(leUser,callback){
+     User.findOne({
+       where : {username: leUser.username, password: leUser.oldPassword}
+     })
+     .then((data)=>{
+       if(!data){
+         let msg = {"success":false,"error" : "Incorrect password"};
+         return callback(null, msg);
+       }
+       updatedUser = {
+         password : leUser.newPassword
+       };
+       data.update(updatedUser, {
+         fields: Object.keys(updatedUser)
+       })
+       .then((afterUser) => {
+         callback(null, afterUser);
+       })
+       .catch((err) => {
+         console.log(err);
+         let msg = {"success":false,"error" : "Problem updating password"};
+         return callback(null, msg);
+       });
+
      })
      .catch((err)=>{
        let msg = {"success":false,"error" : "user not found"};

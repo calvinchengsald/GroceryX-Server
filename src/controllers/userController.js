@@ -109,6 +109,20 @@ module.exports = {
           res.end(JSON.stringify(user,null,4));
         }
       })
+    },
+    updatePassword(req,res,next){
+      let leUser = {
+        username : req.body.username,
+        oldPassword : req.body.oldPassword,
+        newPassword : req.body.newPassword
+      };
+      userQueries.updatePassword(leUser, (err,user)=>{
+        if(err){
+          res.end(JSON.stringify(err,null,4));
+        } else {
+          res.end(JSON.stringify(user,null,4));
+        }
+      })
     }
 
 
