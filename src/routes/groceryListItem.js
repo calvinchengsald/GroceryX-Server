@@ -5,12 +5,13 @@ const validation = require("./validation");
 
 router.get("/groceryListItem", groceryListItemController.index);
 router.get("/groceryListItem/new", groceryListItemController.new);
-router.post("/groceryListItem/create", validation.validateGroceryListItem, groceryListItemController.create);
 router.get("/groceryListItem/:groceryListItemID", groceryListItemController.read);
-router.post("/groceryListItem/:groceryListItemID", groceryListItemController.postread);
-router.post("/groceryListItem/delete/:groceryListItemID", groceryListItemController.delete);
-router.post("/groceryListItem/update/:groceryListItemID", groceryListItemController.update);
 router.get("/groceryListItem/update/:groceryListItemID", groceryListItemController.edit);
+
+router.post("/groceryListItem/create", validation.validateGroceryListItem, groceryListItemController.create);
+router.post("/groceryListItem/:groceryListItemID", validation.validateGroceryListItemInt ,groceryListItemController.postread);
+router.post("/groceryListItem/delete/:groceryListItemID", validation.validateGroceryListItemInt, groceryListItemController.delete);
+router.post("/groceryListItem/update/:groceryListItemID", validation.validateGroceryListItemInt, groceryListItemController.update);
 
 
 module.exports = router;

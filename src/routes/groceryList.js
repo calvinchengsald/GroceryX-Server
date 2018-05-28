@@ -1,15 +1,17 @@
 const express = require("express");
 const router = express.Router();
 const groceryListController = require("../controllers/groceryListController");
+const validation = require("./validation");
 
 router.get("/groceryList", groceryListController.index);
 router.get("/groceryList/new", groceryListController.new);
-router.post("/groceryList/create", groceryListController.create);
 router.get("/groceryList/:groceryListID", groceryListController.read);
-router.post("/groceryList/:groceryListID", groceryListController.postread);
-router.post("/groceryList/delete/:groceryListID", groceryListController.delete);
-router.post("/groceryList/update/:groceryListID", groceryListController.update);
 router.get("/groceryList/update/:groceryListID", groceryListController.edit);
+
+router.post("/groceryList/create", validation.validateGroceryList, groceryListController.create);
+router.post("/groceryList/:groceryListID",  validation.validateGroceryListInt, groceryListController.postread);
+router.post("/groceryList/delete/:groceryListID",  validation.validateGroceryListInt, groceryListController.delete);
+router.post("/groceryList/update/:groceryListID",  validation.validateGroceryListInt, groceryListController.update);
 
 
 module.exports = router;

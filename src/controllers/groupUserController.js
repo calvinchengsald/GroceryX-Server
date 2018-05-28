@@ -59,7 +59,8 @@ module.exports = {
    },
    update(req, res, next){
       let updateGroupUser = {
-        groupUserName: req.body.groupUserName,
+        groupId: req.body.groupId,
+        userId: req.body.userId,
       };
       groupUserQueries.updateGroupUser(req.params.groupUserID, updateGroupUser, (err, groupUser) => {
         if(err){

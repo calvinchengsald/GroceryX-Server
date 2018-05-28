@@ -80,14 +80,14 @@ describe("INTEGRATE : user", () => {
            url: `${base}create`,
            form: {
              name: "Andy",
-             password: "boom"
+             username: "Ausername",
+             password: "boomboom"
            }
          };
          request.post(options, (err, res, body) => {
                expect(res.statusCode).toBe(200);
                expect(err).toBeNull();
                expect(body).toContain("Andy");
-               expect(body).toContain("boom");
                done();
           });
      });
@@ -99,7 +99,7 @@ describe("INTEGRATE : user", () => {
            }
          };
          request.post(options, (err, res, body) => {
-              expect(body).toContain("cannot be null");
+              expect(body).toContain("false");
                done();
           });
      });

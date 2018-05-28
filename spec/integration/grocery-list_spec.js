@@ -104,7 +104,7 @@ describe("INTEGRATE : groceryList", () => {
            }
          };
          request.post(options, (err, res, body) => {
-              expect(body).toContain("cannot be null");
+              expect(body).toContain("false");
                done();
           });
      });

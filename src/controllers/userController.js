@@ -1,4 +1,6 @@
 const userQueries = require("../db/queries/user.js");
+const bcrypt = require("bcrypt");
+const salt = bcrypt.genSaltSync();
 
 module.exports = {
   index(req, res, next){
@@ -18,7 +20,7 @@ module.exports = {
   create(req, res, next){
      let newUser = {
        name: req.body.name,
-       password: req.body.password,
+       password: bcrypt.hashSync(req.body.password,salt),
        username: req.body.username
      };
      userQueries.addUser(newUser, (err, user) => {
@@ -59,11 +61,19 @@ module.exports = {
      });
    },
    update(req, res, next){
+     if(req.body.password){
+       let updateUser = {
+         name: req.body.name,
+         password: bcrypt.hashSync(req.body.password,salt),
+         username: req.body.username
+       };
+     }
+    else {
       let updateUser = {
         name: req.body.name,
-        password: req.body.password,
         username: req.body.username
       };
+    }
       userQueries.updateUser(req.params.userID, updateUser, (err, user) => {
         if(err){
           res.end(JSON.stringify(err,null,4));

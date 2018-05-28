@@ -127,7 +127,7 @@ describe("INTEGRATE : groceryListItem", () => {
            }
          };
          request.post(options, (err, res, body) => {
-              expect(body).toContain("Name is required");
+              expect(body).toContain("false");
                done();
           });
      });
