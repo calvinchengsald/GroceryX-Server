@@ -56,13 +56,28 @@ describe("INTEGRATE : groupuser", () => {
 
 
    describe("POST CREATE ", () => {
-
+     beforeEach((done) => {
+         this.user2;
+         User.create({
+           username: "Calvin3",
+           password: "passsword",
+           name:"name3"
+         })
+         .then((user2)=>{
+           this.user2 = user2;
+           done();
+         })
+         .catch((err)=>{
+           console.log(err);
+           done();
+         })
+     });
 
      it("should create a GroupUser ", (done) => {
          const options = {
            url: `${base}create`,
            form: {
-             userId: this.user.id,
+             userId: this.user2.id,
              groupId: this.group.id,
            }
          };
