@@ -1,4 +1,4 @@
-const groupUserQueries = require("../db/queries/groupuser.js");
+const groupUserQueries = require("../db/queries/groupUser.js");
 
 module.exports = {
   index(req, res, next){
