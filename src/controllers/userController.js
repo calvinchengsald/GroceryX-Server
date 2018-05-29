@@ -61,15 +61,16 @@ module.exports = {
      });
    },
    update(req, res, next){
+     let updateUser = {};
      if(req.body.password){
-       let updateUser = {
+      updateUser = {
          name: req.body.name,
          password: bcrypt.hashSync(req.body.password,salt),
          username: req.body.username
        };
      }
     else {
-      let updateUser = {
+      updateUser = {
         name: req.body.name,
         username: req.body.username
       };

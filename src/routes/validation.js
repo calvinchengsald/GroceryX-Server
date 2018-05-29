@@ -66,7 +66,8 @@ module.exports = {
       return next();
     }
   },
-  validateUserUpdate(req, res, next) {
+  validateUserInt(req, res, next) {
+    req.checkParams("userID","Password must be an integer").isInt();
     if(req.body.password){
       req.checkBody("password", "Password is required").notEmpty();
       req.checkBody("password", "Password must be at least 6 characters in length").isLength({min: 6});
