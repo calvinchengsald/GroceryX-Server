@@ -20,16 +20,32 @@ module.exports = {
 
 
   addGroupUser(newGroupUser, callback){
-      return GroupUser.create({
-        groupId: newGroupUser.groupId,
-        userId: newGroupUser.userId
-      })
-      .then((groupUser) => {
-        callback(null, groupUser);
-      })
-      .catch((err) => {
-        callback(err);
-      })
+    GroupUser.findOne({
+      where : {groupId: newGroupUser.groupId,
+                userId: newGroupUser.userId}
+    })
+    .then((data)=>{
+      if(data){
+        let msg = {"success":false,"error" : `This user is already a part of this group`};
+        return callback(null, msg);
+      }
+      else {
+        return GroupUser.create({
+          groupId: newGroupUser.groupId,
+          userId: newGroupUser.userId
+        })
+        .then((groupUser) => {
+          callback(null, groupUser);
+        })
+        .catch((err) => {
+          callback(err);
+        })
+      }
+    })
+    .catch((err) => {
+      callback(err);
+    })
+
   },
 
   deleteGroupUser(id, callback){

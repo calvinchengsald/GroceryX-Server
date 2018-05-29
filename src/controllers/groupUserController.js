@@ -19,6 +19,7 @@ module.exports = {
        groupId: req.body.groupId
      };
      groupUserQueries.addGroupUser(newGroupUser, (err, groupUser) => {
+       //console.log("least here?");
        if(err){
            res.end(JSON.stringify(err,null,4));
        } else {
