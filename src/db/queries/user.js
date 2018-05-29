@@ -2,6 +2,7 @@ const User = require("../models").User;
 const GroupUser = require("../models").GroupUser;
 const Group = require("../models").Group;
 const GroceryList = require("../models").GroceryList;
+const GroceryListItem = require("../models").GroceryListItem;
 const bcrypt = require("bcrypt");
 const salt = bcrypt.genSaltSync();
 
@@ -54,7 +55,8 @@ module.exports = {
           {
             model: GroupUser, as: "groupusers", include: [{model: Group, as: "group" }]
           },
-          {model: GroceryList, as : "grocerylists"}
+          {model: GroceryList, as : "grocerylists"},
+          {model: GroceryListItem, as : "grocerylistitems"}
         ]
       })
 
