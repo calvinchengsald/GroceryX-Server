@@ -1,4 +1,4 @@
-const groceryListItemQueries = require("../db/queries/groceryListItem.js");
+const groceryListItemQueries = require("../db/queries/grocerylistitem.js");
 
 module.exports = {
   index(req, res, next){
