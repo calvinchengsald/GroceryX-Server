@@ -20,7 +20,7 @@
       </div>
       <div class='row'>
         <div class='col-3'> GroceryList: </div>
-        <div class='col-9'> <%= groceryListItem.GroceryList.name %> </div>
+        <div class='col-9'> <%= groceryListItem.grocerylist.name %> </div>
       </div>
       <div class='row'>
         <div class='col-3'> Budget: </div>
@@ -37,7 +37,7 @@
       <% if(groceryListItem.purchased){ %>
       <div class='row'>
         <div class='col-3'> Buyer: </div>
-        <div class='col-9'> <%= groceryListItem.User.name %> </div>
+        <div class='col-9'> <%= groceryListItem.buyer.name %> </div>
       </div>
       <% } %>
 
