@@ -87,3 +87,7 @@ Models:
   /groceryListItem/create                            -create GroceryListItem with fields
   /groceryListItem/delete/:groceryListItemID        -deletes GroceryListItem with id of groceryListItemID
   /groceryListItem/update/:groceryListItemID        -updates GroceryListItem with id of groceryListItemID
+
+.env
+  accessSite - give site access to fetch
+  example: accessSite="http://groceryx.s3-website-us-east-1.amazonaws.com/"
